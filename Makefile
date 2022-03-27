@@ -1,8 +1,23 @@
-SRCS = ./srcs/main.cpp ./srcs/Classes/App.cpp
 
-OBJS = $(SRCS:.cpp=.o)
+SRC_DIR = ./Srcs/
 
-NAME = app
+CLASSES_DIR = $(SRC_DIR)Classes/
+
+
+# SRC FILES
+SRC_TMP = $(addprefix $(SRC_DIR), main)
+
+# CLASSES FILES
+
+SRC_TMP += $(addprefix $(CLASSES_DIR), Game)
+
+
+# ADDSUFIX
+SRC = $(addsuffix .cpp, $(SRC_TMP))
+
+OBJS = $(SRC:.cpp=.o)
+
+NAME = rpg
 
 LIB_PATH = /libs/
 
@@ -21,10 +36,10 @@ all: $(NAME)
 
 
 .cpp.o:
-	${CC} ${CFLAGS} -I./includes -c $< -o ${<:.cpp=.o}
+	${CC} ${CFLAGS} -I./Includes -c $< -o ${<:.cpp=.o}
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -I./includes -I$(SFML_PATH)includes -o $(NAME) $(OBJS) -L$(SFML_PATH)lib  $(SFML_FLAGS)
+	$(CC) $(CFLAGS) -I./Includes -I$(SFML_PATH)includes -o $(NAME) $(OBJS) -L$(SFML_PATH)lib  $(SFML_FLAGS)
 
 clean:
 	$(RM) $(OBJS)
